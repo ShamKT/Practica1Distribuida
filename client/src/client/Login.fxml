@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.LoginController">
+   <children>
+      <Label layoutX="350.0" layoutY="30.0" text="Iniciar Sesion">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="355.0" layoutY="100.0" text="Nombre de Usuario" />
+      <TextField fx:id="txtUser" layoutX="350.0" layoutY="120.0" />
+      <Label layoutX="355.0" layoutY="180.0" text="Contraseña" />
+      <PasswordField fx:id="txtPass" layoutX="350.0" layoutY="200.0" />
+      <Button fx:id="btnLogin" disable="true" layoutX="350.0" layoutY="250.0" mnemonicParsing="false" text="Iniciar Sesion" />
+      <Label fx:id="lblError" layoutX="320.0" layoutY="300.0" maxWidth="-Infinity" prefHeight="52.0" prefWidth="263.0" textAlignment="CENTER" wrapText="true" />
+      <Label layoutX="50.0" layoutY="30.0" text="Registrarse">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="100.0" text="Nombre de Usuario" />
+      <TextField fx:id="txtNUser" layoutX="50.0" layoutY="120.0" />
+      <Label layoutX="55.0" layoutY="180.0" text="Contraseña" />
+      <PasswordField fx:id="txtNPass" layoutX="50.0" layoutY="200.0" />
+      <Label layoutX="55.0" layoutY="240.0" text="Repetir Contraseña" />
+      <PasswordField fx:id="txtNRPass" layoutX="50.0" layoutY="260.0" />
+      <Label fx:id="lblPass" layoutX="50.0" layoutY="285.0" text="La contraseña no coincide" textFill="RED" visible="false" />
+      <Button fx:id="btnRegister" disable="true" layoutX="50.0" layoutY="310.0" mnemonicParsing="false" text="Crear Cuenta" />
+      <Label fx:id="lblNError" layoutX="50.0" layoutY="360.0" />
+      <Line endY="370.0" layoutX="300.0" startY="30.0" />
+   </children>
+</Pane>

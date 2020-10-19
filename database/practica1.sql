@@ -18,7 +18,3 @@ CREATE TABLE carrera(
     distancia INTEGER NOT NULL,
     fecha DATE NOT NULL
 );
-
-CREATE USER 'distribuida'@'localhost' IDENTIFIED BY '12345';
-GRANT ALL PRIVILEGES ON distribuida_practica1.* TO 'distribuida'@'localhost';
-FLUSH PRIVILEGES;

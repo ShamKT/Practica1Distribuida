@@ -1,0 +1,58 @@
+package records;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class ConexionMySQL {
+
+    private static ConexionMySQL conexionInstance = new ConexionMySQL();
+
+    private Connection connection;
+
+    private ConexionMySQL() {
+
+        Properties prop = new Properties();
+        try (FileInputStream is = new FileInputStream("db.properties")) {
+            prop.load(is);
+        } catch (FileNotFoundException e) {
+            System.out.println("ERROR: No se encontro el archivo \"db.properties\"");
+            System.exit(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String db_name = prop.getProperty("db_name");
+        String db_host = prop.getProperty("db_host");
+        String db_username = prop.getProperty("db_username");
+        String db_password = prop.getProperty("db_password");
+
+        String url = "jdbc:mysql://" + db_host + "/" + db_name;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection = DriverManager.getConnection(url, db_username, db_password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+
+    public static ConexionMySQL getInstance() {
+        return conexionInstance;
+    }
+}

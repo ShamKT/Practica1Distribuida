@@ -275,7 +275,7 @@ public class GUIController implements Initializable {
             txtUser.setText("");
             txtPass.setText("");
         } else if (code == 401) {
-            sesionAlert.setHeaderText("El nombre de usuario o la contraseña son incorrectos.");
+            sesionAlert.setHeaderText("El nombre de usuario o la contrase\u00f1a son incorrectos.");
             sesionAlert.setContentText("Intentelo de nuevo");
             sesionAlert.show();
         } else if (code == -1) {
@@ -299,7 +299,7 @@ public class GUIController implements Initializable {
         int distancia = Integer.parseInt(txtDistancia.getText());
         String tiempo = Integer.toString(spnHora.getValue()) + ":" + Integer.toString(spnMinuto.getValue()) + ":"
                 + Integer.toString(spnSegundo.getValue()) + "." + Integer.toString(spnCentisegundo.getValue());
-        int code = client.sendGetAñadir(
+        int code = client.sendGetAnadir(
                 new Carrera(Sesion.GetInstance().getCorredor().getNombre(), tipo, tiempo, distancia, fecha));
 
         if (code == 200) {

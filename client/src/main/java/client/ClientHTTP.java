@@ -105,7 +105,7 @@ public class ClientHTTP {
      *     La carrera que se va a registrar.
      * @return El codigo de respuesta del servidor o -1 si no se logra conectar con el servidor.
      */
-    public int sendGetAñadir(Carrera carrera) {
+    public int sendGetAnadir(Carrera carrera) {
 
         String url = "http://localhost:8000/api?add";
         HttpURLConnection connection = null;

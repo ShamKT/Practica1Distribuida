@@ -59,17 +59,16 @@ public class ClientHTTP {
             }
 
         } catch (ConnectException e) {
-            e.printStackTrace();
             return -1;
         } catch (ProtocolException e) {
             e.printStackTrace();
-            return -1;
+            return -2;
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return -1;
+            return -3;
         } catch (IOException e) {
             e.printStackTrace();
-            return -1;
+            return -4;
         }
         return responseCode;
     }
@@ -97,17 +96,16 @@ public class ClientHTTP {
 
 
         } catch (ConnectException e) {
-            e.printStackTrace();
             return -1;
         } catch (ProtocolException e) {
             e.printStackTrace();
-            return -1;
+            return -2;
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            return -1;
+            return -3;
         } catch (IOException e) {
             e.printStackTrace();
-            return -1;
+            return -4;
         }
         return responseCode;
 

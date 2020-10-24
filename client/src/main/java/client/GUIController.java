@@ -220,8 +220,6 @@ public class GUIController implements Initializable {
         btnActualizarG.setOnAction(e -> llenarBitacoraG());
 
         sesionAlert.setTitle("Error");
-        sesionAlert.setHeaderText("Su sesion ha caducado.");
-        sesionAlert.setContentText("Vuelva a inicar sesion para continuar.");
     }
 
 
@@ -237,7 +235,9 @@ public class GUIController implements Initializable {
             pnLogin.setVisible(false);
             pnMenu.setVisible(true);
         } else if (code == 409) {
-            lblNError.setText("El nombre de usuario ya existe.");
+            sesionAlert.setHeaderText("El nombre de usuario ya existe.");
+            sesionAlert.setContentText("Intentelo con un nombre distinto.");
+            sesionAlert.show();
         }
 
     }
@@ -254,7 +254,13 @@ public class GUIController implements Initializable {
             txtUser.setText("");
             txtPass.setText("");
         } else if (code == 401) {
-            lblError.setText("El nombre de usuario o la contraseña son incorrectos.");
+            sesionAlert.setHeaderText("El nombre de usuario o la contraseña son incorrectos.");
+            sesionAlert.setContentText("Intentelo de nuevo");
+            sesionAlert.show();
+        } else if (code == -1) {
+            sesionAlert.setHeaderText("No se pudo conectar con el servidor");
+            sesionAlert.setContentText("Intentelo de nuevo, mas tarde.");
+            sesionAlert.show();
         }
 
     }
@@ -270,7 +276,11 @@ public class GUIController implements Initializable {
                 new Carrera(Sesion.GetInstance().getCorredor().getNombre(), tipo, tiempo, distancia, fecha));
 
         if (code == 200) {
-            lblStatus.setText("Registro agregado satisfactoriamente");
+            sesionAlert.setHeaderText("Registro agregado satisfactoriamente");
+            sesionAlert.setContentText("");
+            sesionAlert.show();
+
+
             cmbTipo.setValue(null);
             dtpFecha.setValue(null);
             txtDistancia.setText("");
@@ -281,6 +291,8 @@ public class GUIController implements Initializable {
         } else if (code == 403) {
             pnMenu.setVisible(false);
             pnLogin.setVisible(true);
+            sesionAlert.setHeaderText("Su sesion ha caducado.");
+            sesionAlert.setContentText("Vuelva a inicar sesion para continuar.");
             sesionAlert.show();
         }
 
@@ -321,6 +333,8 @@ public class GUIController implements Initializable {
         } else {
             pnMenu.setVisible(false);
             pnLogin.setVisible(true);
+            sesionAlert.setHeaderText("Su sesion ha caducado.");
+            sesionAlert.setContentText("Vuelva a inicar sesion para continuar.");
             sesionAlert.show();
         }
     }
@@ -335,6 +349,8 @@ public class GUIController implements Initializable {
         } else {
             pnMenu.setVisible(false);
             pnLogin.setVisible(true);
+            sesionAlert.setHeaderText("Su sesion ha caducado.");
+            sesionAlert.setContentText("Vuelva a inicar sesion para continuar.");
             sesionAlert.show();
         }
     }

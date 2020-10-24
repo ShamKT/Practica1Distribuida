@@ -40,6 +40,7 @@ public class ConexionMySQL {
         }
         try {
             connection = DriverManager.getConnection(url, db_username, db_password);
+            System.out.println("Conexion a la base de datos exitosa.");
         } catch (SQLException e) {
             e.printStackTrace();
         }

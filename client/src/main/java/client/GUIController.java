@@ -172,8 +172,6 @@ public class GUIController implements Initializable {
         btnRegister.setOnAction(e -> register());
         btnLogin.setOnAction(e -> login());
 
-        // Main Menu
-
         apnCarrera.setOnKeyReleased(e -> verificarAnadir());
         apnCarrera.setOnMouseMoved(e -> verificarAnadir());
 

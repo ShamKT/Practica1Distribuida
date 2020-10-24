@@ -27,7 +27,7 @@ public class Main extends Application {
         scene = new Scene(root);
 
         primaryStage.setScene(scene);
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Registro de Carreras");
         primaryStage.show();
     }

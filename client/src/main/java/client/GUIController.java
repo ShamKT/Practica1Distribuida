@@ -27,6 +27,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import records.Carrera;
 
+/**
+ * Clase que controla la interfaz de usuario del cliente.
+ * 
+ * @author Orlando Ledesma Rincón
+ *
+ */
 public class GUIController implements Initializable {
 
     private ClientHTTP client = new ClientHTTP();
@@ -120,6 +126,9 @@ public class GUIController implements Initializable {
 
     Alert sesionAlert = new Alert(AlertType.INFORMATION);
 
+    /**
+     * Método que inicializa el controlador de la interfaz de usuario.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -160,7 +169,7 @@ public class GUIController implements Initializable {
             }
         });
 
-        btnRegister.setOnAction(e -> Register());
+        btnRegister.setOnAction(e -> register());
         btnLogin.setOnAction(e -> login());
 
         // Main Menu
@@ -223,7 +232,12 @@ public class GUIController implements Initializable {
     }
 
 
-    private void Register() {
+    /**
+     * Método que llama al metodo sendGetLogin de la clase cliente con la información que el usuario llena en la
+     * interfaz para registrarse. En caso de obtener un codigo 200 cambia la interfaz al menu principal. En caso de un
+     * codigo 409 o -1 envia el mensaje de alerta correspondiente al usuario.
+     */
+    private void register() {
         String user = txtNUser.getText();
         String pass = txtNPass.getText();
         String estado = cmbEstado.getValue();
@@ -238,11 +252,20 @@ public class GUIController implements Initializable {
             sesionAlert.setHeaderText("El nombre de usuario ya existe.");
             sesionAlert.setContentText("Intentelo con un nombre distinto.");
             sesionAlert.show();
+        } else if (code == -1) {
+            sesionAlert.setHeaderText("No se pudo conectar con el servidor");
+            sesionAlert.setContentText("Intentelo de nuevo, mas tarde.");
+            sesionAlert.show();
         }
 
     }
 
 
+    /**
+     * Método que llama al metodo sendGetLogin de la clase cliente con la infromacion que el usuario llena en la
+     * interfaz para iniciar sesion. En caso de obtener un codigo 200 cambia la interfaz al menu principal. En caso de
+     * un codigo 401 o -1 envia el mensaje de alerta correspondiente al usuario.
+     */
     private void login() {
         String user = txtUser.getText();
         String pass = txtPass.getText();
@@ -266,6 +289,12 @@ public class GUIController implements Initializable {
     }
 
 
+    /**
+     * Método que llama al metodo sendGetAñadir de la clase cliente con la información que el usuario llena en la
+     * interfaz para añadir una carrera al registro. En caso de recibir un codigo 200 limpia la interfaz para permitir
+     * que el usuario introdusca los datos de otra carrera. En caso de recibir un codigo 403 envia el mensaje de alerta
+     * correspondiente y regresa a la pantalla de inicio de sesion.
+     */
     private void anadir() {
         String tipo = cmbTipo.getValue();
         Date fecha = Date.valueOf(dtpFecha.getValue());
@@ -279,7 +308,6 @@ public class GUIController implements Initializable {
             sesionAlert.setHeaderText("Registro agregado satisfactoriamente");
             sesionAlert.setContentText("");
             sesionAlert.show();
-
 
             cmbTipo.setValue(null);
             dtpFecha.setValue(null);
@@ -299,6 +327,10 @@ public class GUIController implements Initializable {
     }
 
 
+    /**
+     * Método que verifica si se han llenado los campos necesarios para poder iniciar sesion o registrar un usuario y
+     * activa o desactiva el boton correspondiente según sea el caso.
+     */
     private void verificarLogin() {
         if (txtNUser.getText().length() == 0 || cmbEstado.getValue() == null || cmbGenero.getValue() == null
                 || txtEdad.getText().length() == 0 || txtNPass.getText().length() == 0
@@ -315,6 +347,10 @@ public class GUIController implements Initializable {
     }
 
 
+    /**
+     * Método que verifica si se han llenado los campos necesarios para poder añadir una carrera al registro y activa o
+     * desactiva el boton de registrar según sea el caso.
+     */
     private void verificarAnadir() {
         if (cmbTipo.getValue() == null || dtpFecha.getValue() == null || txtDistancia.getText().length() == 0) {
             btnRegistrarCarrera.setDisable(true);
@@ -324,6 +360,12 @@ public class GUIController implements Initializable {
     }
 
 
+    /**
+     * Metodo que llama al método sendGetBitacora de la clase cliente con la tipo="P" para obtener una lista de carreras
+     * para añadirlas a la tabla de la bitacora personal. En caso de no recibir la lista de carreras se asume que la
+     * sesion caduco, se manda el mensaje de alerta correspondiente al usuario y se regresa a la pantalla de inicio de
+     * sesion.
+     */
     private void llenarBitacoraP() {
         LinkedList<Carrera> lista = client.sendGetBitacora("P", Sesion.GetInstance().getCorredor());
         if (lista != null) {
@@ -340,8 +382,14 @@ public class GUIController implements Initializable {
     }
 
 
+    /**
+     * Metodo que llama al método sendGetBitacora de la clase cliente con la tipo="G" para obtener una lista de carreras
+     * para añadirlas a la tabla de la bitacora general. En caso de no recibir la lista de carreras se asume que la
+     * sesion caduco, se manda el mensaje de alerta correspondiente al usuario y se regresa a la pantalla de inicio de
+     * sesion.
+     */
     private void llenarBitacoraG() {
-        LinkedList<Carrera> lista = client.sendGetBitacora("G", Sesion.GetInstance().getCorredor());
+        LinkedList<Carrera> lista = client.sendGetBitacora("G", null);
         if (lista != null) {
             tblGeneral.getItems().clear();
             while (!lista.isEmpty())

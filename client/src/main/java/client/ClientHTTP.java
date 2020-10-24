@@ -18,8 +18,32 @@ import java.util.LinkedList;
 import records.Carrera;
 import records.Corredor;
 
+/**
+ * Clase cliente que controla la comunicación con el servidor.
+ * 
+ * @author Orlando Ledesma Rincon
+ *
+ */
 public class ClientHTTP {
 
+    /**
+     * Metodo que envia una petición GET al servidor para registar o autenticar a un usuario. En caso de completarse
+     * satisfactoriamente registra al usuario y al JWT que devuelve el servidor en la instancia de la clase Sesion.
+     * 
+     * @param op
+     *     La operación que se va a realizar: "reg" para registar un usuario nuevo, "aut" para autenticar un usuario.
+     * @param user
+     *     El nombre del usuario a registrar o autenticar.
+     * @param pass
+     *     La contraseña que ingresa el usuario.
+     * @param estado
+     *     El estado de residencia del usuario que se va a registrar, null si se esta autenticando.
+     * @param genero
+     *     El género del usuario que se va a registrar, null si se esta autenticando.
+     * @param edad
+     *     La edad del usuario a registrar, null si se esta autenticando.
+     * @return El codigo de respuesta del servidor o -1 si no se logra conectar con el servidor.
+     */
     public int sendGetLogin(String op, String user, String pass, String estado, String genero, int edad) {
         MessageDigest md = null;
         Corredor corredor = null;
@@ -74,12 +98,18 @@ public class ClientHTTP {
     }
 
 
+    /**
+     * Metodo que envia una petición GET al servidor con un objeto carrera para registrarlo en la base de datos.
+     * 
+     * @param carrera
+     *     La carrera que se va a registrar.
+     * @return El codigo de respuesta del servidor o -1 si no se logra conectar con el servidor.
+     */
     public int sendGetAñadir(Carrera carrera) {
 
         String url = "http://localhost:8000/api?add";
         HttpURLConnection connection = null;
         int responseCode;
-
 
         try {
             connection = (HttpURLConnection) new URL(url).openConnection();
@@ -93,7 +123,6 @@ public class ClientHTTP {
             }
 
             responseCode = connection.getResponseCode();
-
 
         } catch (ConnectException e) {
             return -1;
@@ -112,6 +141,16 @@ public class ClientHTTP {
     }
 
 
+    /**
+     * Metodo que envia una solicitud GET al servidor para obtener una lista de carreras para llenar la bitácora
+     * personal o general, según se requiera.
+     * 
+     * @param tipo
+     *     El tipo de bitacora que se requiere: "P" si es la bitácora personal, "G" para la bitácora general.
+     * @param corredor
+     *     El corredor del que se requiere la bitácora personal, null si requiere la bitacora general
+     * @return Lista con las carreras para la bitácora.
+     */
     @SuppressWarnings("unchecked")
     public LinkedList<Carrera> sendGetBitacora(String tipo, Corredor corredor) {
 
@@ -132,11 +171,8 @@ public class ClientHTTP {
             int responseCode = connection.getResponseCode();
             LinkedList<Carrera> lista = null;
 
-
-
             if (responseCode == 200) {
                 ObjectInputStream is = new ObjectInputStream(connection.getInputStream());
-                
 
                 Object obj = is.readObject();
 

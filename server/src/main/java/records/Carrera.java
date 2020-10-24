@@ -7,11 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+/**
+ * Active Record que modela a una carrera, no contiene llave primaria por simplicidad.
+ * 
+ * @author Orlando Ledesma Rincón
+ *
+ */
 public class Carrera implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 4134597379516183363L;
 
     private String corredor;
@@ -21,6 +24,20 @@ public class Carrera implements Serializable {
     private Date fecha;
     private String fechaString;
 
+    /**
+     * Constructor de un objeto carrera.
+     * 
+     * @param corredor
+     *     El nombre del corredor que participo en la carrera.
+     * @param tipo
+     *     El tipo de carrera.
+     * @param tiempo
+     *     El tiempo en formato "hh:mm:ss.cc".
+     * @param distancia
+     *     La distancia de la carrera.
+     * @param fecha
+     *     La fecha de la carrera.
+     */
     public Carrera(String corredor, String tipo, String tiempo, int distancia, Date fecha) {
         this.corredor = corredor;
         this.tipo = tipo;
@@ -31,6 +48,9 @@ public class Carrera implements Serializable {
     }
 
 
+    /**
+     * Metodo que añade el objeto que lo ejecuta en la base de datos.
+     */
     public void insert() {
         try {
             PreparedStatement insert = ConexionMySQL.getInstance().getConnection().prepareStatement(
@@ -42,12 +62,21 @@ public class Carrera implements Serializable {
             insert.setDate(5, fecha);
 
             insert.execute();
+            System.out.println("Carrera añadida a la base de datos.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
 
+    /**
+     * Metodo que recupera todas las carreras de la base de datos o las realizadas por un corredor si se especifica y
+     * las añade en una lista.
+     * 
+     * @param corredor
+     *     El nombre del corredor del que se buscaran carreras, null para obtener todas las carreras.
+     * @return Una lista con las carreras solicitadas.
+     */
     public static LinkedList<Carrera> select(String corredor) {
         try {
             PreparedStatement select;
@@ -61,7 +90,6 @@ public class Carrera implements Serializable {
 
             ResultSet res = select.executeQuery();
 
-
             LinkedList<Carrera> lista = new LinkedList<>();
 
             while (res.next()) {
@@ -69,6 +97,7 @@ public class Carrera implements Serializable {
                         res.getDate(6)));
             }
 
+            System.out.println("Se generó una lista de carreras.");
             return lista;
 
         } catch (SQLException e) {

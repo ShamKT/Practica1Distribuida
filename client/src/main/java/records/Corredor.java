@@ -1,13 +1,15 @@
 package records;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
+/**
+ * Active Record que modela a una corredor, no contiene métodos CRUD ni llave primaria por simplicidad.
+ * 
+ * @author Orlando Ledesma Rincón
+ *
+ */
 public class Corredor implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 4895473332089945967L;
 
     private String nombre;
@@ -16,6 +18,20 @@ public class Corredor implements Serializable {
     private String genero;
     private int edad;
 
+    /**
+     * Constructor de un objeto corredor.
+     * 
+     * @param nombre
+     *     El nombre del corredor.
+     * @param passHash
+     *     El hash de la contraseña del corredor.
+     * @param estado
+     *     El estado de residencia del corredor.
+     * @param genero
+     *     El género del corredor.
+     * @param edad
+     *     La edad del corredor.
+     */
     public Corredor(String nombre, byte[] passHash, String estado, String genero, int edad) {
         this.nombre = nombre;
         this.passHash = passHash;
@@ -47,17 +63,5 @@ public class Corredor implements Serializable {
 
     public int getEdad() {
         return edad;
-    }
-
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Corredor) {
-            Corredor otro = (Corredor) obj;
-            if (this.nombre.equals(otro.getNombre()) && Arrays.equals(this.passHash, otro.getPassHash())) {
-                return true;
-            }
-        }
-        return false;
     }
 }

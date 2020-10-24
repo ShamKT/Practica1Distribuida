@@ -15,8 +15,20 @@ import io.fusionauth.jwt.Signer;
 import io.fusionauth.jwt.domain.JWT;
 import io.fusionauth.jwt.hmac.HMACSigner;
 
+/**
+ * Clase Handler para la contexto "/login". En este se realiza el registro y el inicio de sesion de usuarios.
+ * 
+ * @author Orlando Ledesma Rincón
+ *
+ */
 public class LoginHandler implements HttpHandler {
 
+    /**
+     * Metodo handle de la clase, obtiene el tipo de operación y registra o verifica la información de inicio de sesion.
+     * En caso de de intentar registrar un usuario con un nombre ya utilizado envia un codigo 409 de respuesta, caso
+     * contrario devuelve un codigo 200. En caso de que la infromación de inicio de sesion sea incorrecta devuelve un
+     * código 401, caso contrario envia un código 200 en la respuesta.
+     */
     @Override
     public void handle(HttpExchange ex) throws IOException {
 
@@ -41,6 +53,7 @@ public class LoginHandler implements HttpHandler {
                     corredor.insert();
                     code = 200;
                     respuesta = generarToken(corredor.getNombre());
+                    System.out.println("Se inicio sesión con el usuario " + corredor.getNombre() + ".");
                 }
                 break;
             }
@@ -53,6 +66,7 @@ public class LoginHandler implements HttpHandler {
                     if (Arrays.equals(autenticando.getPassHash(), corredor.getPassHash())) {
                         code = 200;
                         respuesta = generarToken(corredor.getNombre());
+                        System.out.println("Se inicio sesión con el usuario " + corredor.getNombre() + ".");
                     } else {
                         code = 401;
                         respuesta = "El nombre de usuario o la contraseña son incorrectos.";
@@ -72,6 +86,13 @@ public class LoginHandler implements HttpHandler {
     }
 
 
+    /**
+     * Método que genera un JWT y lo codifica.
+     * 
+     * @param usuario
+     *     El nombre del usuario al que se asocia el token.
+     * @return Una cadena que contiene el token codificado.
+     */
     private String generarToken(String usuario) {
         Signer signer = HMACSigner.newSHA256Signer("too many secrets");
 

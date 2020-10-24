@@ -6,10 +6,20 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Clase principal del cliente, contiene el metodo main.
+ * 
+ * @author Orlando Ledesma Rincón
+ *
+ */
+
 public class Main extends Application {
 
     static Scene scene;
 
+    /**
+     * Método que inicializa la interfaz de usuario.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -23,6 +33,11 @@ public class Main extends Application {
     }
 
 
+    /**
+     * Método main del cliente, inicia la aplicación.
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

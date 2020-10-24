@@ -5,7 +5,7 @@ Todos los comandos se ejecutan desde el directorio raiz.
 
 ## Comando para compilar el cliente.
 
-> javac -classpath "client/lib/Linux/*" -d client/build client/src/main/java/records/* client/src/main/java/client/*.java
+> javac -classpath .:client/lib/Linux/* -d client/build client/src/main/java/records/*.java client/src/main/java/client/*.java ; cp client/GUI.fxml client/build/
 
 ## Comando para ejecutar el cliente en Linux.
 
@@ -15,8 +15,9 @@ Todos los comandos se ejecutan desde el directorio raiz.
 
 > java -classpath client/build:client/lib/Windows/* --module-path ./client/lib/Windows --add-modules javafx.controls,javafx.fxml client.Main
 
-## Comando para iniciar el servidor y la base de datos.
+## Comandos para iniciar el servidor y la base de datos.
 
+> docker-compose build
 > docker-compose up
 
 

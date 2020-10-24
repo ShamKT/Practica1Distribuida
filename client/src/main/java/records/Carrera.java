@@ -3,11 +3,14 @@ package records;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * Active Record que modela a una carrera, no contiene métodos CRUD ni llave primaria por simplicidad.
+ * 
+ * @author Orlando Ledesma Rincón
+ *
+ */
 public class Carrera implements Serializable {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 4134597379516183363L;
 
     private String corredor;
@@ -17,6 +20,20 @@ public class Carrera implements Serializable {
     private Date fecha;
     private String fechaString;
 
+    /**
+     * Constructor de un objeto carrera.
+     * 
+     * @param corredor
+     *     El nombre del corredor que participo en la carrera.
+     * @param tipo
+     *     El tipo de carrera.
+     * @param tiempo
+     *     El tiempo en formato "hh:mm:ss.cc".
+     * @param distancia
+     *     La distancia de la carrera.
+     * @param fecha
+     *     La fecha de la carrera.
+     */
     public Carrera(String corredor, String tipo, String tiempo, int distancia, Date fecha) {
         this.corredor = corredor;
         this.tipo = tipo;

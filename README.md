@@ -3,13 +3,17 @@
 Repositorio para la practica 1 del curso de computación distribuida.<br>
 Todos los comandos se ejecutan desde el directorio raiz de la practica.
 
-## Comando para compilar el cliente.
+## Comando para compilar el cliente en Linux.
 
 > javac -classpath "client/lib/Linux/lib/\*" -d client/build client/src/main/java/records/\*.java client/src/main/java/client/*.java ; cp client/GUI.fxml client/build/
 
 ## Comando para ejecutar el cliente en Linux.
 
 > java -classpath "client/build:client/lib/Linux/lib/\*" --module-path ./client/lib/Linux/lib --add-modules javafx.controls,javafx.fxml client.Main
+
+## Comando para compilar el cliente en Windows.
+
+> javac -classpath "client/lib/Windows/lib/\*" -d client/build client/src/main/java/records/\*.java client/src/main/java/client/*.java ; cp client/GUI.fxml client/build/
 
 ## Comando para ejecutar el cliente en Windows.
 
